@@ -1,0 +1,7 @@
+{
+    "Codegeex.SidebarUI.LanguagePreference": "English",
+    "Codegeex.RepoIndex": true,
+    "Codegeex.CompletionDelay": 1,
+    "Codegeex.GenerationPreference": "line by line",
+    "Codegeex.CommitMessageStyle": "Default"
+}
