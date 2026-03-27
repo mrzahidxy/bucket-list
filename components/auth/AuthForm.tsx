@@ -11,6 +11,7 @@ import { apiFetch, RequestError } from "@/lib/client/api";
 
 type AuthFormProps = {
   mode: "login" | "signup";
+  showForgotPasswordLink?: boolean;
 };
 
 type GoogleCredentialResponse = {
@@ -33,7 +34,7 @@ type GoogleWindow = Window & {
   };
 };
 
-export const AuthForm = ({ mode }: AuthFormProps): React.JSX.Element => {
+export const AuthForm = ({ mode, showForgotPasswordLink = false }: AuthFormProps): React.JSX.Element => {
   const router = useRouter();
   const googleButtonRef = useRef<HTMLDivElement | null>(null);
   const [name, setName] = useState("");
@@ -175,6 +176,13 @@ export const AuthForm = ({ mode }: AuthFormProps): React.JSX.Element => {
               required
             />
           </div>
+          {!isSignup && showForgotPasswordLink ? (
+            <div className="text-right">
+              <Link href="/forgot-password" className="text-xs font-semibold text-primary">
+                Forgot Password?
+              </Link>
+            </div>
+          ) : null}
           <Button type="submit" loading={loading} className="w-full" size="lg">
             {isSignup ? "Sign up" : "Log in"}
           </Button>
