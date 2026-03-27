@@ -11,6 +11,15 @@ export const loginSchema = z.object({
   password: z.string().min(8).max(72)
 });
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().trim().email().toLowerCase()
+});
+
+export const resetPasswordSchema = z.object({
+  token: z.string().trim().min(1),
+  password: z.string().min(8).max(72)
+});
+
 const avatarSchema = z
   .string()
   .trim()

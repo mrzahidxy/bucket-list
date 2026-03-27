@@ -8,5 +8,5 @@ export default async function LoginPage(): Promise<React.JSX.Element> {
     redirect("/dashboard");
   }
 
-  return <AuthForm mode="login" />;
+  return <AuthForm mode="login" showForgotPasswordLink />;
 }
