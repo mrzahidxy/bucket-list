@@ -26,8 +26,8 @@ jobs:
           context: .
           push: true
           tags: |
-            mrzahidxy/bucket-list:latest
-            mrzahidxy/bucket-list:${{ github.sha }}
+            zayedsagor/bucket-list:latest
+            zayedsagor/bucket-list:${{ github.sha }}
 
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3

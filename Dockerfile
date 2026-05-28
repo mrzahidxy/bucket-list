@@ -15,16 +15,17 @@ RUN npm ci --ignore-scripts
 FROM deps AS builder
 COPY . .
 ARG MONGODB_URI=mongodb://127.0.0.1:27017/bucketlist
-ARG JWT_SECRET=build-secret-minimum-32-characters-long
 ARG JWT_EXPIRES_IN=7d
 ARG APP_URL=http://127.0.0.1:8080
 ARG MOCK_EMAIL=true
-ENV MONGODB_URI=$MONGODB_URI
-ENV JWT_SECRET=$JWT_SECRET
-ENV JWT_EXPIRES_IN=$JWT_EXPIRES_IN
-ENV APP_URL=$APP_URL
-ENV MOCK_EMAIL=$MOCK_EMAIL
-RUN mkdir -p public && npm run build
+RUN --mount=type=secret,id=jwt_secret \
+  export MONGODB_URI="$MONGODB_URI" \
+  JWT_SECRET="$(if [ -s /run/secrets/jwt_secret ]; then cat /run/secrets/jwt_secret; else printf '%s' 'build-secret-minimum-32-characters-long'; fi)" \
+  JWT_EXPIRES_IN="$JWT_EXPIRES_IN" \
+  APP_URL="$APP_URL" \
+  MOCK_EMAIL="$MOCK_EMAIL" \
+  && mkdir -p public \
+  && npm run build
 
 FROM node:20-slim AS production
 WORKDIR /app

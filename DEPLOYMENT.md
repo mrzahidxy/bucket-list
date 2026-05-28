@@ -20,8 +20,9 @@ Optional GitHub secrets:
 - `VPS_APP_DIR`
 - `LOCAL_HEALTHCHECK_URL`
 - `PUBLIC_HEALTHCHECK_URL`
-- `GHCR_USERNAME`
-- `GHCR_TOKEN`
+- `JWT_SECRET`
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
 
 VPS app path:
 
@@ -36,7 +37,8 @@ These VPS files are not committed:
 VPS notes:
 
 - Put real production env values in `/opt/apps/bucket-list/.env`.
-- Keep `docker-compose.yml` on the VPS pointing at `ghcr.io/mrzahidxy/bucket-list/app:latest` or a SHA tag.
+- Keep `docker-compose.yml` on the VPS pointing at `zayedsagor/bucket-list:latest` or a SHA tag.
+- The GitHub Actions workflow publishes to Docker Hub using `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
 - Make sure the compose service maps traffic to container port `8080` and the app health check uses `GET /health`.
 
 Manual deploy:
@@ -68,7 +70,7 @@ Rollback:
 cd /opt/apps/bucket-list
 nano docker-compose.yml
 # change image to:
-# ghcr.io/mrzahidxy/bucket-list/app:<previous-good-sha>
+# zayedsagor/bucket-list:<previous-good-sha>
 
 docker compose pull
 docker compose up -d
