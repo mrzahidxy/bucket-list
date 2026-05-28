@@ -1,3 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const GET = async () => NextResponse.json({ status: "ok" });
+export async function GET(): Promise<NextResponse> {
+  return NextResponse.json({ ok: true });
+}
